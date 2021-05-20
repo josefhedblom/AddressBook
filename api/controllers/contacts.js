@@ -1,10 +1,15 @@
 const Contact = require('../model/Contact');
 
+function returnFields(){
+    var allKeys = Contact.findOne();
+    for(var myKey in allKeys){console.log(myKey);}
+}
 
 exports.show = async (req,res) => {
     try {
        const contacts = await Contact.find()
-       return res.status(200).json(contacts)
+       returnFields()
+       return res.status(200).json({users: contacts, fields: returnFields()})
     } catch (error) {
         console.log(error.message);
         res.status(400).json({errors: error})
@@ -12,7 +17,7 @@ exports.show = async (req,res) => {
 };
 
 exports.contact = async (req,res) => {
-    const user = await Contact.findOne({first_name: req.params.first_name})
+    const user = await Contact.findOne({_id: req.params.id})
     try {
         if(user) {
             res.status(200).json({user: user});
