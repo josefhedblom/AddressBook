@@ -1,15 +1,9 @@
 const Contact = require('../model/Contact');
 
-function returnFields(){
-    var allKeys = Contact.findOne();
-    for(var myKey in allKeys){console.log(myKey);}
-}
-
 exports.show = async (req,res) => {
     try {
        const contacts = await Contact.find()
-       returnFields()
-       return res.status(200).json({users: contacts, fields: returnFields()})
+       return res.status(200).json(contacts)
     } catch (error) {
         console.log(error.message);
         res.status(400).json({errors: error})
