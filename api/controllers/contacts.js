@@ -1,26 +1,9 @@
 const Contact = require('../model/Contact');
 
-const seed = {
-    first_name: 'John',
-    last_name: 'Appleseed', 
-    email: 'john.appleseed@example.com', 
-    phone: '000 00 00 00', 
-    address: '1 infinite loop', 
-    city: 'Cupertino', 
-    zipCode: 'CA 95014,', 
-    country: 'United States', 
-    profile_img: 'https://robohash.org/appleseed.png?size=50x50&set=set1'
-}
-
 exports.show = async (req,res) => {
     try {
         const contacts = await Contact.find()
-        if(contacts.length !== 0){
-            return res.status(200).json({contacts: contacts})
-        } else {
-            const contactSeed = Contact.create(seed);
-            return res.status(200).json({contacts: contactSeed})
-        }
+        return res.status(200).json({contacts: contacts})
     } catch (error) {
         console.log(error.message);
         res.status(400).json({errors: error})
