@@ -18,8 +18,7 @@ exports.show = async (req,res) => {
         if(contacts.length !== 0){
             return res.status(200).json({contacts: contacts})
         } else {
-            const contact = new Contact(seed);
-            await contact.save()
+            const contacts = await Contact.create(seed);
             return res.status(200).json({contacts: contacts})
         }
     } catch (error) {
